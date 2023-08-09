@@ -4,21 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Vite App</title>
   </head>
   <body>
+    <audio id="move-sound" src="sounds\mixkit-modern-click-box-check-1120.wav"></audio>
+    <audio id="end-sound" src="sounds\mixkit-achievement-bell-600.wav"></audio>
+    <div id="nav">
+      <h1>The Hanoi Tower Problem</h1>
+      <div class="button-container">
+        <button id="start-button" class="start active">Start</button>
+        <button id="restart-button" class="restart">Re-Start</button>
+      </div>
+    </div>
     <div id="app" class="rounded-corners">
       <div class="outer-horizontal">
         <div class="inner-vertical tower A">
-          <div class="ring size4"></div>
-          <div class="ring size3"></div>
-          <div class="ring size2"></div>
-          <div class="ring size1"></div>
+          <div class="ring size4 fade-in"></div>
+          <div class="ring size3 fade-in"></div>
+          <div class="ring size2 fade-in"></div>
+          <div class="ring size1 fade-in"></div>
+          <div class="ring size0 fade-in"></div>
         </div>
         <div class="inner-vertical tower B"></div>
         <div class="inner-vertical tower C"></div>
       </div>
     </div>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>

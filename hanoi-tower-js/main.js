@@ -1,19 +1,23 @@
-import "./style.css";
+import './style.css';
 
-let rings = document.querySelectorAll(".ring");
-let pegs = document.querySelectorAll(".tower");
+const rings = document.querySelectorAll('.ring');
+const pegs = document.querySelectorAll('.tower');
+const startButton = document.querySelector('#start-button');
+const restartButton = document.querySelector('#restart-button');
+const moveSound = document.getElementById('move-sound');
+const endSound = document.getElementById('end-sound');
 
-// console.log(rings, pegs);
-
-function getNumberOfPegs(peg) {
-  return peg.children.length;
+function playSound(sound) {
+  sound.volume = 0.2;
+  sound.play();
 }
 
 function movePeg(source, target) {
   const ringToMove = source.firstElementChild;
   if (ringToMove) {
-    console.log("Moving ring:", ringToMove);
-
+    // console.log('Moving ring:', ringToMove)
+    ringToMove.classList.add('fade-in');
+    playSound(moveSound);
     if (target.firstElementChild) {
       // If target has children, insert before the first child
       target.insertBefore(ringToMove, target.firstChild);
@@ -22,84 +26,17 @@ function movePeg(source, target) {
       target.appendChild(ringToMove);
     }
   } else {
-    console.warn("There is no ring to move");
+    console.warn('There is no ring to move');
   }
 }
 
-// function moveRings(sourcePeg, targetPeg, auxilaryPeg) {
-//   let numOfDisksInPeg = getNumberOfPegs(sourcePeg);
-//   if (numOfDisksInPeg === 1) {
-//     // base case - if there is only one peg move it from the source to target
-//     movePeg(sourcePeg, targetPeg);
-//   } else {
-
-
-//     movePeg(sourcePeg, targetPeg)
-//     movePeg(sourcePeg, auxilaryPeg)
-//     movePeg(targetPeg, auxilaryPeg)
-//     movePeg(sourcePeg, targetPeg)
-//     movePeg(auxilaryPeg, sourcePeg)
-//     movePeg(auxilaryPeg, targetPeg)
-//     movePeg(sourcePeg, targetPeg)
-//     movePeg(sourcePeg, auxilaryPeg)
-//     movePeg(targetPeg, auxilaryPeg)
-//     movePeg(targetPeg, sourcePeg)
-//     movePeg(auxilaryPeg, sourcePeg)
-//     movePeg(targetPeg, auxilaryPeg)
-//     movePeg(sourcePeg, targetPeg)
-//     movePeg(sourcePeg, auxilaryPeg)
-//     movePeg(targetPeg, auxilaryPeg)
-//   }
-// }
-
-
-// // console.log(rings.length)
-
-// // setTimeout(() => {
-// //   moveRings(pegs[0], pegs[2], pegs[1], rings.length);
-// // }, 1000);
-
-// setTimeout(() => {
-//   moveRings(pegs[0], pegs[2], pegs[1]);
-// }, 1000);
-
-
-// function moveRings(sourcePeg, targetPeg, auxilaryPeg, numberOfDisks) {
-//   if (numberOfDisks === 1) {
-//     // Base case: Move the top disk from source to target
-//     setTimeout(() => {
-//       movePeg(sourcePeg, targetPeg);
-//     }, 1000); // Introduce a 1-second delay
-//   } else {
-//         // Recursive case:
-//     // Move n-1 disks from source to auxiliary using target as auxiliary
-//     moveRings(sourcePeg, auxilaryPeg, targetPeg, numberOfDisks - 1)
-
-//     // Now, move the largest disk from source to target
-
-//     setTimeout(() => {
-//       movePeg(sourcePeg, targetPeg);
-//     }, 1000); // Introduce a 1-second delay
-
-//     // Finally, move the n-1 disks from auxiliary to target using source as auxiliary
-//     moveRings(auxilaryPeg, targetPeg, sourcePeg, numberOfDisks - 1)
-//   }
-// }
-
-// // Example usage
-// setTimeout(() => {
-//   const numberOfRings = rings.length;
-//   moveRings(pegs[0], pegs[2], pegs[1], numberOfRings);
-// }, 1000);
-
-
-function moveRings(sourcePeg, targetPeg, auxilaryPeg, numberOfDisks) {
+function animateTowerMovement(sourcePeg, targetPeg, auxilaryPeg, numberofRings) {
   function moveSingleRing(source, target) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         movePeg(source, target);
         resolve();
-      }, 1000);
+      }, 600);
     });
   }
 
@@ -113,13 +50,60 @@ function moveRings(sourcePeg, targetPeg, auxilaryPeg, numberOfDisks) {
     }
   }
 
-  moveRecursive(sourcePeg, targetPeg, auxilaryPeg, numberOfDisks);
+  return moveRecursive(sourcePeg, targetPeg, auxilaryPeg, numberofRings); // Return the promise
+}
+function restartTheGame(rings) {
+  const towerA = document.querySelector('.tower.A');
+  const towerB = document.querySelector('.tower.B');
+  const towerC = document.querySelector('.tower.C');
+
+  // Move all rings back to tower A
+  while (towerB.firstChild) {
+    towerA.appendChild(towerB.firstChild);
+  }
+  while (towerC.firstChild) {
+    towerA.appendChild(towerC.firstChild);
+  }
+
+  // Reset the button states
+  startButton.disabled = false;
+  restartButton.classList.remove('active');
+
+  // Enable the startButton button
+  isAppRunning = false;
+  startButton.disabled = false;
+  startButton.classList.add('active');
+
+  rings.forEach((el) => {
+    el.classList.remove('.fadeIn');
+  });
 }
 
-// Example usage
-setTimeout(() => {
-  const numberOfRings = rings.length;
-  moveRings(pegs[0], pegs[2], pegs[1], numberOfRings);
-}, 1000);
+let isAppRunning = false;
 
+function startGame() {
+  if (!isAppRunning) {
+    console.log('The Towers are being moved...');
+    isAppRunning = true;
+    startButton.disabled = true;
+    restartButton.disabled = true;
+    startButton.classList.remove('active');
+    const numberOfRings = rings.length;
 
+    animateTowerMovement(pegs[0], pegs[2], pegs[1], numberOfRings).then(() => {
+      console.log('The towers have been moved. You can start again...');
+      playSound(endSound);
+
+      isAppRunning = false;
+
+      restartButton.disabled = false;
+      restartButton.classList.add('active');
+    });
+  }
+}
+
+startButton.addEventListener('click', startGame);
+
+restartButton.addEventListener('click', () => {
+  restartTheGame();
+});
