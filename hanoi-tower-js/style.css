@@ -96,6 +96,9 @@ h1 {
 .size3 {
   min-width: 40%;
 }
+.size4 {
+  min-width: 20%;
+}
 
 .card {
   padding: 2em;
