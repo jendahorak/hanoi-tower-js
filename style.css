@@ -15,6 +15,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  cursor: default;
 }
 
 body {
@@ -39,12 +40,9 @@ h1 {
 .rounded-corners {
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 30px;
-  border-color: #646cff;
+  border-color:#00bfbc;
 }
 
-/* .rounded-corners:hover {
-  border-color: #646cff;
-} */
 
 #app {
   width: 40vw;
@@ -92,7 +90,7 @@ h1 {
 @keyframes fadeIn {
   from {
     opacity: 1;
-    background-color: #646cff;
+    background-color:#00bfbc; 
   }
 
   to {
@@ -118,13 +116,6 @@ h1 {
   min-width: 20%;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
 
 .button-container {
   display: flex;
@@ -154,17 +145,43 @@ button {
 }
 
 .active:hover {
-  color: #646cff;
+  color:#00bfbc;
   cursor: pointer;
 }
+
+
+footer {
+  text-align: center;
+  padding: 10px;
+  color: #4e4e4e;;
+  /* background-color: #f0f0f0; */
+  position: fixed; /* Use "fixed" position */
+  bottom: 0; /* Push the footer to the bottom */
+  width: 100%; /* Make the footer span the entire width */
+}
+
+p{
+  transition: font-size 0.3s ease-in-out;
+
+}
+
+p:hover{
+  font-size: larger;
+}
+
+a{
+  color: #4e4e4e;
+}
+a:hover{
+  color:rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
   }
   button {
     background-color: #f9f9f9;

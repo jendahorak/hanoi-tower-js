@@ -6,9 +6,11 @@ const startButton = document.querySelector('#start-button');
 const restartButton = document.querySelector('#restart-button');
 const moveSound = document.getElementById('move-sound');
 const endSound = document.getElementById('end-sound');
+const restartSound = document.getElementById('restart-sound')
+const startSound = document.getElementById('start-sound')
 
-function playSound(sound) {
-  sound.volume = 0.2;
+function playSound(sound, vol=0.2) {
+  sound.volume = vol;
   sound.play();
 }
 
@@ -52,18 +54,37 @@ function animateTowerMovement(sourcePeg, targetPeg, auxilaryPeg, numberofRings) 
 
   return moveRecursive(sourcePeg, targetPeg, auxilaryPeg, numberofRings); // Return the promise
 }
-function restartTheGame(rings) {
+
+
+
+
+async function moveRingsWithDelay(towerFrom, towerTo, delay) {
+  while (towerFrom.firstChild) {
+    towerTo.appendChild(towerFrom.firstChild);
+    playSound(restartSound, 0.8)
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+}
+
+
+async function restartTheGame(rings) {
+
+
   const towerA = document.querySelector('.tower.A');
-  const towerB = document.querySelector('.tower.B');
+  // const towerB = document.querySelector('.tower.B');
   const towerC = document.querySelector('.tower.C');
 
-  // Move all rings back to tower A
-  while (towerB.firstChild) {
-    towerA.appendChild(towerB.firstChild);
-  }
-  while (towerC.firstChild) {
-    towerA.appendChild(towerC.firstChild);
-  }
+
+  await moveRingsWithDelay(towerC, towerA, 100);
+
+
+  // // Move all rings back to tower A
+  // while (towerB.firstChild) {
+  //   towerA.appendChild(towerB.firstChild);
+  // }
+  // while (towerC.firstChild) {
+  //   towerA.appendChild(towerC.firstChild);
+  // }
 
   // Reset the button states
   startButton.disabled = false;
@@ -74,15 +95,13 @@ function restartTheGame(rings) {
   startButton.disabled = false;
   startButton.classList.add('active');
 
-  rings.forEach((el) => {
-    el.classList.remove('.fadeIn');
-  });
 }
 
 let isAppRunning = false;
 
 function startGame() {
   if (!isAppRunning) {
+    playSound(startSound)
     console.log('The Towers are being moved...');
     isAppRunning = true;
     startButton.disabled = true;
@@ -105,5 +124,5 @@ function startGame() {
 startButton.addEventListener('click', startGame);
 
 restartButton.addEventListener('click', () => {
-  restartTheGame();
+  restartTheGame(rings);
 });
