@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Hanoi Tower Problem</title>
+    <script type="module" crossorigin src="/hanoi-tower-js/assets/index-2c4f8ad5.js"></script>
+    <link rel="stylesheet" href="/hanoi-tower-js/assets/index-772e6d30.css">
+  </head>
+  <body>
+    <audio id="move-sound" src="sounds\mixkit-slide-click-1130.wav"></audio>
+    <audio id="end-sound" src="sounds\mixkit-user-interface-zoom-out-2620.wav"></audio>
+    <audio id="restart-sound" src="sounds\mixkit-ui-zoom-out-2619.wav"></audio>
+    <audio id="start-sound" src="sounds\mixkit-game-user-interface-tone-2570.wav"></audio>
+    <div id="nav">
+      <h1>The Hanoi Tower Problem</h1>
+      <div class="button-container">
+        <button id="start-button" class="start active">Start</button>
+        <button id="restart-button" class="restart">Re-Start</button>
+      </div>
+    </div>
+    <div id="app" class="rounded-corners">
+      <div class="outer-horizontal">
+        <div class="inner-vertical tower A">
+          <div class="ring size4 fade-in"></div>
+          <div class="ring size3 fade-in"></div>
+          <div class="ring size2 fade-in"></div>
+          <div class="ring size1 fade-in"></div>
+          <div class="ring size0 fade-in"></div>
+        </div>
+        <div class="inner-vertical tower B"></div>
+        <div class="inner-vertical tower C"></div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2023 The Hanoi Tower Problem. Made by <a href="https://github.com/jendahorak" target="_blank">jendahorak</a>.</p> 
+    </footer>
+  
+
+    
+  </body>
+</html>
