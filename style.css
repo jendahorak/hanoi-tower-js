@@ -40,9 +40,8 @@ h1 {
 .rounded-corners {
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 30px;
-  border-color:#00bfbc;
+  border-color: #00bfbc;
 }
-
 
 #app {
   width: 40vw;
@@ -90,7 +89,7 @@ h1 {
 @keyframes fadeIn {
   from {
     opacity: 1;
-    background-color:#00bfbc; 
+    background-color: #00bfbc;
   }
 
   to {
@@ -115,7 +114,6 @@ h1 {
 .size4 {
   min-width: 20%;
 }
-
 
 .button-container {
   display: flex;
@@ -145,38 +143,35 @@ button {
 }
 
 .active:hover {
-  color:#00bfbc;
+  color: #00bfbc;
   cursor: pointer;
 }
-
 
 footer {
   text-align: center;
   padding: 10px;
-  color: #4e4e4e;;
+  color: #4e4e4e;
   /* background-color: #f0f0f0; */
   position: fixed; /* Use "fixed" position */
   bottom: 0; /* Push the footer to the bottom */
   width: 100%; /* Make the footer span the entire width */
 }
 
-p{
+p {
   transition: font-size 0.3s ease-in-out;
-
 }
 
-p:hover{
+p:hover {
   font-size: larger;
 }
 
-a{
+a {
   color: #4e4e4e;
 }
-a:hover{
-  color:rgba(255, 255, 255, 0.87);
+a:hover {
+  color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {
