@@ -10,6 +10,8 @@ web: https://jendahorak.github.io/hanoi-tower-js/
 - DOM manipulation
 - Diferent uses of flexbox
 - async javascript
+- work with audio
+- serving app with static files with Vite (bundling)
 
 
 Have to admit that lot the project was done by heavy consulation with ChatGPT
